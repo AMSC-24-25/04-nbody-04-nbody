@@ -1,18 +1,21 @@
 #define G 6.67430e-11
-#include <vector>
-#include <cmath>
+#ifndef NBODY_HPP
+#define NBODY_HPP
 
-template<typename T, int DIM>
+#include <array>
+#include <vector>
+
+namespace nbody {
+
+template <typename T, int D>
 class Particle {
 public:
-    std::vector<T> position;
-    std::vector<T> velocity;
+    std::array<T, D> position;
+    std::array<T, D> velocity;
     T mass;
 
-    void update(const std::vector<T>& pos, const std::vector<T>& vel) {
-        this->position = pos;
-        this->velocity = vel;
-    }
+    Particle(const std::array<T, D>& pos, const std::array<T, D>& vel, T m)
+        : position(pos), velocity(vel), mass(m) {}
 };
 
 template<typename T, int DIM>
@@ -21,6 +24,11 @@ public:
     std::vector<std::vector<T>> forces;
     std::vector<Particle<T, DIM>> particles;
     T dt;
+
+    void addParticle(const Particle<T, DIM>& p) {
+        particles.push_back(p);
+        forces.push_back(std::vector<T>(DIM, 0.0));
+    }
 
     void update() {
         T distance = 0.0;
@@ -58,3 +66,6 @@ public:
         }
     }
 };
+}
+
+#endif
