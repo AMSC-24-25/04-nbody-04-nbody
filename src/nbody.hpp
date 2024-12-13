@@ -4,6 +4,7 @@
 
 #include <array>
 #include <vector>
+#include <cmath>
 
 namespace nbody {
 
@@ -68,4 +69,4 @@ public:
 };
 }
 
-#endife
+#endif

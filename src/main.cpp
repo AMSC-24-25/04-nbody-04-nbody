@@ -6,9 +6,9 @@ using namespace nbody;
 
 int main(){
 
-    nbody::Particle<double, 3> p1({0.0, 0.0, 10.0}, {0.0, 0.0, 0.0}, 1.0);
-    nbody::Particle<double, 3> p2({10.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0);
-    nbody::Particle<double, 3> p3({0.0, 10.0, 0.0}, {0.0, 0.0, 0.0}, 1.0);
+    Particle<double, 3> p1({0.0, 0.0, 10.0}, {0.0, 0.0, 0.0}, 1.0);
+    Particle<double, 3> p2({10.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0);
+    Particle<double, 3> p3({0.0, 10.0, 0.0}, {0.0, 0.0, 0.0}, 1.0);
 
     nbody::Nbody<double, 3> nbody;
 
