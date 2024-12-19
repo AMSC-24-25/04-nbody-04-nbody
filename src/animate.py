@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
 import pandas as pd
 
 # Parametri configurabili
-csv_file = "output.csv"  # Sostituire con il percorso del file CSV
+csv_file = "./build/output.csv"
 
 # Carica i dati dal CSV
 data = pd.read_csv(csv_file)

@@ -77,19 +77,20 @@ namespace nbody {
         void exportToCsv(const std::string& filename) {
             std::ofstream outFile;
 
-            bool fileExists = std::ifstream(filename).good();
-            outFile.open(filename, std::ios::app);
+            outFile.open(filename, std::ios::app); 
             if (!outFile.is_open()) {
                 throw std::runtime_error("Impossibile aprire il file per la scrittura: " + filename);
             }
 
-            if (!fileExists) {
+            static bool firstCall = true; // Flag to add the header only once
+            if (firstCall) {
                 outFile << "step,particle_id,mass";
                 for (int k = 0; k < DIM; ++k) {
                     outFile << ",position_" << k;
                     outFile << ",velocity_" << k;
                 }
                 outFile << "\n";
+                firstCall = false; 
             }
 
             static int step = 0;

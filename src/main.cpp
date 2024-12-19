@@ -2,32 +2,22 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "json.hpp"
 
 using namespace nbody;
+#define DIM 2
 
 int main() {
-    const std::string filename = "output.json";
-    nlohmann::json jsonOutput = nlohmann::json::array(); 
-
-    std::ifstream inFile(filename);
-    if (inFile.is_open()) {
-        try {
-            inFile >> jsonOutput;
-            if (!jsonOutput.is_array()) {
-                jsonOutput = nlohmann::json::array(); 
-            }
-        } catch (...) {
-            jsonOutput = nlohmann::json::array(); 
-        }
+    std::ofstream outFile("output.csv", std::ios::trunc);  
+    if (!outFile.is_open()) {
+        throw std::runtime_error("Impossibile aprire il file per la scrittura: output.csv");
     }
 
-    Particle<double, 3> p1({0.0, 0.0, 10.0}, {0.0, 0.0, 0.0}, 200000000000000000.0);
-    Particle<double, 3> p2({10.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 10000000.0);
-    Particle<double, 3> p3({0.0, 10.0, 0.0}, {0.0, 0.0, 0.0}, 90000.0);
-    Particle<double, 3> p4({0.0, 30.0, 0.0}, {0.0, 0.0, 0.0}, 90000000.0);
+    Particle<double, DIM> p1({0.0, 0.0}, {0.0, 0.0}, 200000000000000000.0);
+    Particle<double, DIM> p2({10.0, 0.0}, {0.0, 0.0}, 10000000.0);
+    Particle<double, DIM> p3({0.0, 10.0}, {0.0, 0.0}, 90000.0);
+    Particle<double, DIM> p4({0.0, 30.0}, {0.0, 0.0}, 90000000.0);
 
-    nbody::Nbody<double, 3> nbody;
+    nbody::Nbody<double, DIM> nbody;
 
     nbody.addParticle(p1);
     nbody.addParticle(p2);
