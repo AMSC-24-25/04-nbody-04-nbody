@@ -5,11 +5,10 @@ import math
 
 # Parse Command Line Arguments
 if len(argv) < 3:
-    exit("Usage is render.py <input file> <output file> [cutoff]")
+    exit("Usage is render.py <input file> <output file>")
 
 input_file = argv[1]
 output_file = argv[2]
-cutoff = None if len(argv) <= 3 else float(argv[3])
 
 def circle_to_box(center_x, center_y, size):
     return (center_x - size, center_y - size,

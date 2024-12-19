@@ -1,22 +1,22 @@
 # N-Body Simulation
 
-This project implements an N-body gravitational simulation in C++, with both serial and parallel (OpenMP) versions. The simulation calculates the gravitational interactions between multiple particles in a 2D space.
+This project implements an N-body gravitational simulation in C++, with both serial and parallel (OpenMP) versions. The simulation calculates the gravitational interactions between multiple particles in a 2D or 3D space.
 
 ## Overview
 
 The N-body problem simulates the motion of particles under gravitational forces. Each particle is affected by the gravitational pull of all other particles in the system, following Newton's law of universal gravitation:
 
-F = G * (m1 * m2) / r^2
+$F = G \frac{m_1 m_2}{r^2}$
 
 where:
-- F is the gravitational force between two particles
-- G is the gravitational constant (6.67430e-11 m³/kg·s²)
-- m1, m2 are the masses of the particles
-- r is the distance between the particles
+- $F$ is the gravitational force between two particles
+- $G$ is the gravitational constant ($6.67430 \times 10^{-11}$ $\text{m}^3\text{kg}^{-1}\text{s}^{-2}$)
+- $m1$, $m2$ are the masses of the particles
+- $r$ is the distance between the particles
 
 ## Features
 
-- 2D particle simulation with gravitational interactions
+- Multiple dimension particle simulation with gravitational interactions
 - Both serial and parallel (OpenMP) implementations
 - CSV output for position and velocity data
 - Python-based animation visualization
@@ -47,9 +47,8 @@ make
 
 2. Visualize the results:
 ```bash
-python ../animate.py output.csv animation.gif [cutoff]
+python ../animate.py output.csv animation.gif
 ```
-The optional `cutoff` parameter determines the radius of the yellow circles in the visualization.
 
 ## Project Structure
 
@@ -66,9 +65,9 @@ The optional `cutoff` parameter determines the radius of the yellow circles in t
 The project uses two main classes:
 
 1. `Particle`: Represents a single particle with:
-   - Position (2D array)
-   - Velocity (2D array)
-   - Mass (scalar)
+   - Position (Dimension based array)
+   - Velocity (Dimension based array)
+   - Mass (Scalar)
 
 2. `Nbody`: Main simulation class with:
    - Vector of particles
@@ -114,10 +113,14 @@ while (currentTime < simulationTime) {
 ## Visualization
 
 The included Python script `animate.py` creates an animated GIF from the simulation output:
-- Black dots represent particle positions
-- Yellow circles (optional) show particle influence
+- Coloured dots to represent the different particles
+- The animation shows the evolution of the system 
 - The animation shows the evolution of the system over time
 
 ## Credits
 
-Group 04 of HPC. //da sistemare
+- Lorenzo Esposito
+- Francesco Grassi
+- Giorgio Venezia
+
+Group 04 of HPC.
