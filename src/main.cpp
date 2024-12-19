@@ -1,4 +1,5 @@
 #include "nbody.hpp"
+// #include "nbody_parallel.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -7,7 +8,8 @@ using namespace nbody;
 #define DIM 2
 
 int main() {
-    std::ofstream outFile("output.csv", std::ios::trunc);  
+    std::string fileName="output.csv";
+    std::ofstream outFile(fileName, std::ios::trunc);  
     if (!outFile.is_open()) {
         throw std::runtime_error("Impossibile aprire il file per la scrittura: output.csv");
     }
@@ -28,7 +30,7 @@ int main() {
 
     for (int i = 0; i < 1000; ++i) {
         nbody.update();
-        nbody.exportToCsv("output.csv");
+        nbody.exportToCsv(fileName);
     }
 
     return 0;
