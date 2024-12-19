@@ -8,7 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/jellyfish/shared-folder/amsc24-25/04-nbody-04-nbody/src/main.cpp" "CMakeFiles/nbody.dir/main.cpp.o" "gcc" "CMakeFiles/nbody.dir/main.cpp.o.d"
+  "/home/espo/uni/AMSC/04-nbody-04-nbody/src/main.cpp" "CMakeFiles/nbody.dir/main.cpp.o" "gcc" "CMakeFiles/nbody.dir/main.cpp.o.d"
+  "" "nbody" "gcc" "CMakeFiles/nbody.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

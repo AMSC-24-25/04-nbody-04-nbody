@@ -67,8 +67,8 @@ namespace nbody {
                         for (int k = 0; k < DIM; k++) {
                             // Force direction is along r_ij
                             T force_component = force_magnitude * r_ij[k] / distance;
-                            forces[i][k] -= force_component;  // Force on i points toward j
-                            forces[j][k] += force_component;  // Force on j points toward i
+                            forces[i][k] += force_component;  // Force on i points toward j
+                            forces[j][k] -= force_component;  // Force on j points toward i
                         }
                     }
                 }

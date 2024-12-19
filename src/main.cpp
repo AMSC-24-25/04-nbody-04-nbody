@@ -1,5 +1,5 @@
-// #include "nbody.hpp"
-#include "nbody_parallel.hpp"
+
+#include "nbody.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -15,25 +15,25 @@ int main() {
         throw std::runtime_error("Impossibile aprire il file per la scrittura: output.csv");
     }
 
-    Particle<double, DIM> p1({5.0, 5.0}, {0.0, 0.0}, 5.0e10);        // Massive central body
-    Particle<double, DIM> p2({10.0, 10.0}, {0.0, 0.8}, 1.0e10);      // Orbiting body 1
-    Particle<double, DIM> p3({10.0, 5.0}, {-0.7, 0.0}, 1.0e10);     // Orbiting body 2
-    Particle<double, DIM> p4({0.0, 10.0}, {0.5, -0.5}, 5.0e9);   // Diagonal trajectory
+    Particle<double, DIM> p1({0.0, 0.0}, {2000.0, 0.0}, 5.0e21);        // Massive central body
+    Particle<double, DIM> p2({25000.0, 55000.0}, {-2000.0, 0.0}, 5.0e21);      // Orbiting body 1
+    Particle<double, DIM> p3({55000.0, 500.0}, {-0.7, 3000.0}, 2.0e21);     // Orbiting body 2
+    //Particle<double, DIM> p4({0.0, 10.0}, {0.5, -0.5}, 5.0e9);   // Diagonal trajectory
 
     nbody::Nbody<double, DIM> nbody;
-    double time_step=1.0;
+    double time_step=0.1;
 
     nbody.addParticle(p1);
     nbody.addParticle(p2);
     nbody.addParticle(p3);
-    nbody.addParticle(p4);
+    //nbody.addParticle(p4);
 
     nbody.setDt(time_step);
 
     auto start = std::chrono::high_resolution_clock::now();
     
     double currentTime = 0.0;
-    double simulationTime = 100.0;  // 10 seconds
+    double simulationTime = 20.0;  // 10 seconds
     while (currentTime < simulationTime) {
         nbody.update();
         nbody.exportToCsv(fileName);
