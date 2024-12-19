@@ -6,8 +6,8 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
-#include <exception>
-#include "json.hpp"
+#include <stdexcept>
+#include <string>
 
 namespace nbody {
 
@@ -22,88 +22,86 @@ namespace nbody {
             : position(pos), velocity(vel), mass(m) {}
     };
 
-    template<typename T, int DIM>
+    template <typename T, int DIM>
     class Nbody {
     public:
-        std::vector<std::vector<T>> forces;
+        std::vector<std::array<T, DIM>> forces;
         std::vector<Particle<T, DIM>> particles;
         T dt;
 
+        // Add a particle to the simulation
         void addParticle(const Particle<T, DIM>& p) {
             particles.push_back(p);
-            forces.push_back(std::vector<T>(DIM, 0.0));
+            forces.push_back(std::array<T, DIM>{});  // Initialize forces to zero
         }
 
+        // Set the time step
         void setDt(T d) {
             dt = d;
         }
 
+        // Update the positions and velocities of particles
         void update() {
-            for (int q = 0; q < forces.size(); q++) {
-                forces[q] = std::vector<T>(DIM, 0.0);
+            // Reset forces to zero
+            for (auto& force : forces) {
+                force.fill(0.0);
             }
 
-            for (int i = 0; i < particles.size(); i++) {
-                for (int j = i + 1; j < particles.size(); j++) {
+            // Compute gravitational forces
+            for (size_t i = 0; i < particles.size(); i++) {
+                for (size_t j = i + 1; j < particles.size(); j++) {
                     T distance = 0.0;
-                    std::vector<T> diff(DIM);
+                    std::array<T, DIM> diff{};
 
                     for (int k = 0; k < DIM; k++) {
-                        diff[k] = particles[i].position[k] - particles[j].position[k];
+                        diff[k] = particles[j].position[k] - particles[i].position[k];
                         distance += diff[k] * diff[k];
                     }
-                    
                     distance = std::sqrt(distance);
 
-                    for (int k = 0; k < DIM; k++) {
-                        T force = G * particles[i].mass * particles[j].mass * diff[k] / std::pow(distance, 3);
-                        forces[i][k] += force;
-                        forces[j][k] -= force;
+                    if (distance > 0) {
+                        for (int k = 0; k < DIM; k++) {
+                            T force = G * particles[i].mass * particles[j].mass * diff[k] / (distance * distance * distance);
+                            forces[i][k] += force;
+                            forces[j][k] -= force;
+                        }
                     }
                 }
             }
 
-            for (int i = 0; i < particles.size(); i++) {
+            // Update positions and velocities
+            for (size_t i = 0; i < particles.size(); i++) {
                 for (int k = 0; k < DIM; k++) {
-                    particles[i].position[k] += particles[i].velocity[k] * dt;
                     particles[i].velocity[k] += forces[i][k] * dt / particles[i].mass;
+                    particles[i].position[k] += particles[i].velocity[k] * dt;
                 }
             }
         }
 
+        // Export current simulation state to CSV
         void exportToCsv(const std::string& filename) {
-            std::ofstream outFile;
-
-            outFile.open(filename, std::ios::app); 
+            std::ofstream outFile(filename, std::ios::app);
             if (!outFile.is_open()) {
-                throw std::runtime_error("Impossibile aprire il file per la scrittura: " + filename);
+                throw std::runtime_error("Unable to open file for writing: " + filename);
             }
 
-            static bool firstCall = true; // Flag to add the header only once
+            static bool firstCall = true;
+
             if (firstCall) {
-                outFile << "step,particle_id,mass";
-                for (int k = 0; k < DIM; ++k) {
-                    outFile << ",position_" << k;
-                    outFile << ",velocity_" << k;
-                }
-                outFile << "\n";
-                firstCall = false; 
+                outFile << particles.size() << " " << dt << "\n";
+                firstCall = false;
             }
 
-            static int step = 0;
-            for (size_t i = 0; i < particles.size(); ++i) {
-                outFile << step << "," << i << "," << particles[i].mass;
-                for (int k = 0; k < DIM; ++k) {
-                    outFile << "," << particles[i].position[k];
-                }
-                for (int k = 0; k < DIM; ++k) {
-                    outFile << "," << particles[i].velocity[k];
+            for (const auto& particle : particles) {
+                for (int k = 0; k < DIM; k++) {
+                    outFile << particle.position[k] << " ";
                 }
                 outFile << "\n";
             }
-            ++step;
+            outFile << std::endl;
         }
     };
-}
 
-#endif
+} // namespace nbody
+
+#endif // NBODY_HPP
