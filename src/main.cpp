@@ -15,10 +15,10 @@ int main() {
         throw std::runtime_error("Impossibile aprire il file per la scrittura: output.csv");
     }
 
-    Particle<double, DIM> p1({0.0, 0.0}, {0.0, 0.0}, 5.0e10);        // Massive central body
-    Particle<double, DIM> p2({20.0, 0.0}, {0.0, 0.8}, 1.0e10);      // Orbiting body 1
-    Particle<double, DIM> p3({0.0, 30.0}, {-0.7, 0.0}, 1.0e10);     // Orbiting body 2
-    Particle<double, DIM> p4({-25.0, -25.0}, {0.5, -0.5}, 5.0e9);   // Diagonal trajectory
+    Particle<double, DIM> p1({5.0, 5.0}, {0.0, 0.0}, 5.0e10);        // Massive central body
+    Particle<double, DIM> p2({10.0, 10.0}, {0.0, 0.8}, 1.0e10);      // Orbiting body 1
+    Particle<double, DIM> p3({10.0, 5.0}, {-0.7, 0.0}, 1.0e10);     // Orbiting body 2
+    Particle<double, DIM> p4({0.0, 10.0}, {0.5, -0.5}, 5.0e9);   // Diagonal trajectory
 
     nbody::Nbody<double, DIM> nbody;
     double time_step=1.0;

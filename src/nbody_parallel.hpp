@@ -52,7 +52,7 @@ namespace nbody {
                 // Aggiunto parallelismo per la parte di calcolo della forza
                 int my_rank = omp_get_thread_num();
                 int thread_count = omp_get_num_threads();
-                int thread, q;
+                int thread;
                 
                 // Initialize local forces array
                 std::vector<std::vector<std::vector<T>>> loc_forces(thread_count, 
@@ -62,26 +62,32 @@ namespace nbody {
                 #pragma omp for
                 for (size_t i = 0; i < particles.size(); i++) {
                     for (size_t j = i + 1; j < particles.size(); j++) {
+                        // Calcolo della differenza tra le posizioni delle particelle
                         for (int k = 0; k < DIM; k++) {
                             diff[k] = particles[i].position[k] - particles[j].position[k];
                         }
 
+                        // Calcolo della distanza
                         distance = 0.0;
                         for (int k = 0; k < DIM; k++) {
                             distance += diff[k] * diff[k];
                         }
                         distance = std::sqrt(distance);
 
-                        for (int k = 0; k < DIM; k++) {
-                            T force = G * particles[i].mass * particles[j].mass * diff[k] / std::pow(distance, 3);
-                            loc_forces[my_rank][i][k] += force;
-                            loc_forces[my_rank][i][k] -= force;
+                        // Prevenire divisioni per distanza molto piccola
+                        if (distance > 1e-10) {  // Aggiungi un controllo per evitare divisione per zero
+                            for (int k = 0; k < DIM; k++) {
+                                T force = G * particles[i].mass * particles[j].mass * diff[k] / std::pow(distance, 3);
+                                loc_forces[my_rank][i][k] += force;
+                                loc_forces[my_rank][j][k] -= force;  // Correzione della direzione della forza
+                            }
                         }
                     }
                 }
 
+                // Somma le forze da tutti i thread
                 #pragma omp for
-                for (q = 0; q < particles.size(); q++) {
+                for (size_t q = 0; q < particles.size(); q++) {
                     for (thread = 0; thread < thread_count; thread++) {
                         for (int k = 0; k < DIM; k++) {
                             forces[q][k] += loc_forces[thread][q][k];
@@ -89,6 +95,7 @@ namespace nbody {
                     }
                 }
 
+                // Aggiorna le posizioni e velocità delle particelle
                 #pragma omp for
                 for (size_t i = 0; i < particles.size(); i++) {
                     for (int k = 0; k < DIM; k++) {
