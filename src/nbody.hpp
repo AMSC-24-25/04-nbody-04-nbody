@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <string>
 
-#define G 6.67430e-11
+#define G 1.0
 
 namespace nbody {
 
@@ -66,7 +66,7 @@ namespace nbody {
                         // Apply force components
                         for (int k = 0; k < DIM; k++) {
                             // Force direction is along r_ij
-                            T force_component = force_magnitude * r_ij[k] / distance;
+                            T force_component = -force_magnitude * r_ij[k] / distance;
                             forces[i][k] -= force_component;  // Force on i points toward j
                             forces[j][k] += force_component;  // Force on j points toward i
                         }
