@@ -1,5 +1,5 @@
-#include "nbody.hpp"
-// #include "nbody_parallel.hpp"
+// #include "nbody.hpp"
+#include "nbody_parallel.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -33,7 +33,7 @@ int main() {
     auto start = std::chrono::high_resolution_clock::now();
     
     double currentTime = 0.0;
-    double simulationTime = 1000.0;  // 10 seconds
+    double simulationTime = 100.0;  // 10 seconds
     while (currentTime < simulationTime) {
         nbody.update();
         nbody.exportToCsv(fileName);
