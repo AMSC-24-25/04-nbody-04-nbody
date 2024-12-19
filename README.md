@@ -1,6 +1,6 @@
 # N-Body Simulation
 
-This project implements an N-body gravitational simulation in C++, with both serial and parallel (OpenMP) versions. The simulation calculates the gravitational interactions between multiple particles in a 2D space.
+This project implements an N-body gravitational simulation in C++, with both serial and parallel (OpenMP) versions. The simulation calculates the gravitational interactions between multiple particles in a 2D or 3D space.
 
 ## Overview
 
@@ -47,9 +47,8 @@ make
 
 2. Visualize the results:
 ```bash
-python ../animate.py output.csv animation.gif [cutoff]
+python ../animate.py output.csv animation.gif 
 ```
-The optional `cutoff` parameter determines the radius of the yellow circles in the visualization.
 
 ## Project Structure
 
@@ -66,8 +65,8 @@ The optional `cutoff` parameter determines the radius of the yellow circles in t
 The project uses two main classes:
 
 1. `Particle`: Represents a single particle with:
-   - Position (2D array)
-   - Velocity (2D array)
+   - Position (2D - 3D array)
+   - Velocity (2D - 3D array)
    - Mass (scalar)
 
 2. `Nbody`: Main simulation class with:
@@ -114,10 +113,13 @@ while (currentTime < simulationTime) {
 ## Visualization
 
 The included Python script `animate.py` creates an animated GIF from the simulation output:
-- Black dots represent particle positions
-- Yellow circles (optional) show particle influence
+- Coloured dots to represent the different particles
 - The animation shows the evolution of the system over time
 
 ## Credits
 
-Group 04 of HPC. //da sistemare
+- Lorenzo Esposito
+- Francesco Grassi
+- Giorgio Venezia
+
+Group 04 of HPC.
