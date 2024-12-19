@@ -5,6 +5,9 @@
 #include <array>
 #include <vector>
 #include <cmath>
+#include <fstream>
+#include <exception>
+#include "json.hpp"
 
 namespace nbody {
 
@@ -69,6 +72,38 @@ namespace nbody {
                     particles[i].velocity[k] += forces[i][k] * dt / particles[i].mass;
                 }
             }
+        }
+
+        void exportToCsv(const std::string& filename) {
+            std::ofstream outFile;
+
+            bool fileExists = std::ifstream(filename).good();
+            outFile.open(filename, std::ios::app);
+            if (!outFile.is_open()) {
+                throw std::runtime_error("Impossibile aprire il file per la scrittura: " + filename);
+            }
+
+            if (!fileExists) {
+                outFile << "step,particle_id,mass";
+                for (int k = 0; k < DIM; ++k) {
+                    outFile << ",position_" << k;
+                    outFile << ",velocity_" << k;
+                }
+                outFile << "\n";
+            }
+
+            static int step = 0;
+            for (size_t i = 0; i < particles.size(); ++i) {
+                outFile << step << "," << i << "," << particles[i].mass;
+                for (int k = 0; k < DIM; ++k) {
+                    outFile << "," << particles[i].position[k];
+                }
+                for (int k = 0; k < DIM; ++k) {
+                    outFile << "," << particles[i].velocity[k];
+                }
+                outFile << "\n";
+            }
+            ++step;
         }
     };
 }
