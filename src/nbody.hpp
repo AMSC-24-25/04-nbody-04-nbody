@@ -1,4 +1,3 @@
-#define G 6.67430e-11
 #ifndef NBODY_HPP
 #define NBODY_HPP
 
@@ -8,6 +7,8 @@
 #include <fstream>
 #include <stdexcept>
 #include <string>
+
+#define G 6.67430e-11
 
 namespace nbody {
 
@@ -29,18 +30,15 @@ namespace nbody {
         std::vector<Particle<T, DIM>> particles;
         T dt;
 
-        // Add a particle to the simulation
         void addParticle(const Particle<T, DIM>& p) {
             particles.push_back(p);
             forces.push_back(std::array<T, DIM>{});  // Initialize forces to zero
         }
 
-        // Set the time step
         void setDt(T d) {
             dt = d;
         }
 
-        // Update the positions and velocities of particles
         void update() {
             // Reset forces to zero
             for (auto& force : forces) {
@@ -51,34 +49,45 @@ namespace nbody {
             for (size_t i = 0; i < particles.size(); i++) {
                 for (size_t j = i + 1; j < particles.size(); j++) {
                     T distance = 0.0;
-                    std::array<T, DIM> diff{};
+                    std::array<T, DIM> r_ij{};  // Vector from i to j
 
+                    // Calculate vector from particle i to j
                     for (int k = 0; k < DIM; k++) {
-                        diff[k] = particles[j].position[k] - particles[i].position[k];
-                        distance += diff[k] * diff[k];
+                        r_ij[k] = particles[j].position[k] - particles[i].position[k];
+                        distance += r_ij[k] * r_ij[k];
                     }
                     distance = std::sqrt(distance);
 
                     if (distance > 0) {
+                        // Calculate magnitude of gravitational force
+                        T force_magnitude = G * particles[i].mass * particles[j].mass / 
+                                         (distance * distance);
+
+                        // Apply force components
                         for (int k = 0; k < DIM; k++) {
-                            T force = G * particles[i].mass * particles[j].mass * diff[k] / (distance * distance * distance);
-                            forces[i][k] += force;
-                            forces[j][k] -= force;
+                            // Force direction is along r_ij
+                            T force_component = force_magnitude * r_ij[k] / distance;
+                            forces[i][k] -= force_component;  // Force on i points toward j
+                            forces[j][k] += force_component;  // Force on j points toward i
                         }
                     }
                 }
             }
 
-            // Update positions and velocities
+            // Update positions and velocities using Euler integration
             for (size_t i = 0; i < particles.size(); i++) {
+                // First update velocity using F = ma
                 for (int k = 0; k < DIM; k++) {
-                    particles[i].velocity[k] += forces[i][k] * dt / particles[i].mass;
+                    particles[i].velocity[k] += (forces[i][k] / particles[i].mass) * dt;
+                }
+                
+                // Then update position using new velocity
+                for (int k = 0; k < DIM; k++) {
                     particles[i].position[k] += particles[i].velocity[k] * dt;
                 }
             }
         }
 
-        // Export current simulation state to CSV
         void exportToCsv(const std::string& filename) {
             std::ofstream outFile(filename, std::ios::app);
             if (!outFile.is_open()) {
@@ -86,7 +95,6 @@ namespace nbody {
             }
 
             static bool firstCall = true;
-
             if (firstCall) {
                 outFile << particles.size() << " " << dt << "\n";
                 firstCall = false;

@@ -1,0 +1,3 @@
+/home/espo/uni/AMSC/04-nbody-04-nbody/src/CMakeFiles/nbody.dir
+/home/espo/uni/AMSC/04-nbody-04-nbody/src/CMakeFiles/edit_cache.dir
+/home/espo/uni/AMSC/04-nbody-04-nbody/src/CMakeFiles/rebuild_cache.dir

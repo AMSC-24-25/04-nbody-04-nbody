@@ -1,0 +1,1 @@
+/sbin/c++  -Wall -O3 -fopenmp -Wl,--dependency-file=CMakeFiles/nbody.dir/link.d CMakeFiles/nbody.dir/main.cpp.o -o nbody  /usr/lib/libgomp.so /usr/lib/libpthread.a
