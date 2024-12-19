@@ -33,3 +33,35 @@
 
 # build folder inside src
 src/build
+src/build/cmake_install.cmake
+src/build/CMakeCache.txt
+src/build/Makefile
+src/build/nbody
+src/build/CMakeFiles/CMakeConfigureLog.yaml
+src/build/CMakeFiles/CMakeDirectoryInformation.cmake
+src/build/CMakeFiles/Makefile.cmake
+src/build/CMakeFiles/Makefile2
+src/build/CMakeFiles/TargetDirectories.txt
+src/build/CMakeFiles/3.28.1/CMakeCCompiler.cmake
+src/build/CMakeFiles/3.28.1/CMakeCXXCompiler.cmake
+src/build/CMakeFiles/3.28.1/CMakeSystem.cmake
+src/build/CMakeFiles/nbody.dir/build.make
+src/build/CMakeFiles/nbody.dir/compiler_depend.internal
+src/build/CMakeFiles/nbody.dir/compiler_depend.make
+src/build/CMakeFiles/nbody.dir/DependInfo.cmake
+src/build/cmake_install.cmake
+src/build/CMakeCache.txt
+src/build/Makefile
+src/build/nbody
+src/build/CMakeFiles/CMakeConfigureLog.yaml
+src/build/CMakeFiles/CMakeDirectoryInformation.cmake
+src/build/CMakeFiles/Makefile.cmake
+src/build/CMakeFiles/Makefile2
+src/build/CMakeFiles/TargetDirectories.txt
+src/build/CMakeFiles/3.28.1/CMakeCCompiler.cmake
+src/build/CMakeFiles/3.28.1/CMakeCXXCompiler.cmake
+src/build/CMakeFiles/3.28.1/CMakeSystem.cmake
+src/build/CMakeFiles/nbody.dir/build.make
+src/build/CMakeFiles/nbody.dir/compiler_depend.internal
+src/build/CMakeFiles/nbody.dir/compiler_depend.make
+src/build/CMakeFiles/nbody.dir/DependInfo.cmake
