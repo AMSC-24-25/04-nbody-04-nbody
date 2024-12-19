@@ -1,5 +1,5 @@
-// #include "nbody.hpp"
-#include "nbody_parallel.hpp"
+#include "nbody.hpp"
+// #include "nbody_parallel.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -10,7 +10,7 @@ using namespace nbody;
 #define DIM 2
 
 int main() {
-    std::string fileName="output_parallel.csv";
+    std::string fileName="output.csv";
     // std::string fileName="output_parallel.csv";
     std::ofstream outFile(fileName, std::ios::trunc);  
     if (!outFile.is_open()) {

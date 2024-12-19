@@ -32,6 +32,7 @@
 *.app
 
 # build folder inside src
+
 src/build
 src/build/cmake_install.cmake
 src/build/CMakeCache.txt
