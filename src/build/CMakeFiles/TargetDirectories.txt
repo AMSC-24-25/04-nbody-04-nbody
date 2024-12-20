@@ -1,3 +1,3 @@
-/mnt/c/Users/giorg/OneDrive/Documenti/GIORGIO/SCUOLA/UNIVERSITA/MAGISTRALE/AMSC/HANDSON/04-nbody-04-nbody/src/build/CMakeFiles/nbody.dir
-/mnt/c/Users/giorg/OneDrive/Documenti/GIORGIO/SCUOLA/UNIVERSITA/MAGISTRALE/AMSC/HANDSON/04-nbody-04-nbody/src/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/giorg/OneDrive/Documenti/GIORGIO/SCUOLA/UNIVERSITA/MAGISTRALE/AMSC/HANDSON/04-nbody-04-nbody/src/build/CMakeFiles/rebuild_cache.dir
+/home/espo/uni/AMSC/04-nbody-04-nbody/src/build/CMakeFiles/nbody.dir
+/home/espo/uni/AMSC/04-nbody-04-nbody/src/build/CMakeFiles/edit_cache.dir
+/home/espo/uni/AMSC/04-nbody-04-nbody/src/build/CMakeFiles/rebuild_cache.dir
