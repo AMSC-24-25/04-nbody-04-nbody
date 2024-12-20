@@ -114,7 +114,6 @@ while (currentTime < simulationTime) {
 
 The included Python script `animate.py` creates an animated GIF from the simulation output:
 - Coloured dots to represent the different particles
-- The animation shows the evolution of the system 
 - The animation shows the evolution of the system over time
 
 ## Credits

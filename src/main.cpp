@@ -15,17 +15,17 @@ int main() {
         throw std::runtime_error("Impossibile aprire il file per la scrittura: output.csv");
     }
 
-    Particle<double, DIM> p1({0.0, 0.0}, {0.0, 0.0}, 6.0e21);        // Massive central body
-    //Particle<double, DIM> p2({2500000.0, 5500000.0}, {-100000.0, 0.0}, 5.0e21);      // Orbiting body 1
-    //Particle<double, DIM> p3({-55000000.0, 500000.0}, {-0.7, 300000.0}, 2.0e21);     // Orbiting body 2
-    Particle<double, DIM> p4({0.0, 384.0e6}, {102200000, 0.0}, 7.0e22);   // Diagonal trajectory
+    Particle<double, DIM> p1({1.0, 0.0}, {0.0, -1.0}, 1.0);        
+    Particle<double, DIM> p2({0.0, -1.0}, {-1.0, 0.0}, 1.0);      
+    Particle<double, DIM> p3({-1.0, 0.0}, {0.0, 1.0}, 1.0);     
+    Particle<double, DIM> p4({0.0, 1.0}, {1.0, 0.0}, 1.0); 
 
     nbody::Nbody<double, DIM> nbody;
-    double time_step=0.01;
+    double time_step=0.04;
 
     nbody.addParticle(p1);
-    //nbody.addParticle(p2);
-    //nbody.addParticle(p3);
+    nbody.addParticle(p2);
+    nbody.addParticle(p3);
     nbody.addParticle(p4);
 
     nbody.setDt(time_step);
@@ -33,7 +33,7 @@ int main() {
     auto start = std::chrono::high_resolution_clock::now();
     
     double currentTime = 0.0;
-    double simulationTime = 1.0;  // 10 seconds
+    double simulationTime = 30.0;
     while (currentTime < simulationTime) {
         nbody.update();
         nbody.exportToCsv(fileName);
