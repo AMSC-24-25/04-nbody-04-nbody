@@ -55,7 +55,7 @@ namespace nbody {
             // for (size_t q = 0; q < forces.size(); q++) {
             //     forces[q] = std::vector<T>(DIM, 0.0);
             // }
-            #pragma omp parallel num_threads(omp_get_max_threads())
+            #pragma omp parallel num_threads(2)
             {
             #pragma omp for
             for (size_t i = 0; i < particles.size(); i++) {

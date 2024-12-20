@@ -1,5 +1,6 @@
 
-#include "nbody.hpp"
+// #include "nbody.hpp"
+#include "nbody_parallel.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -15,10 +16,10 @@ int main() {
         throw std::runtime_error("Impossibile aprire il file per la scrittura: output.csv");
     }
 
-    Particle<double, DIM> p1({1.0, 0.0}, {0.0, -1.0}, 1.0);        
-    Particle<double, DIM> p2({0.0, -1.0}, {-1.0, 0.0}, 1.0);      
-    Particle<double, DIM> p3({-1.0, 0.0}, {0.0, 1.0}, 1.0);     
-    Particle<double, DIM> p4({0.0, 1.0}, {1.0, 0.0}, 1.0); 
+    Particle<double, DIM> p1({1.0, 0.0}, {0.0, -1.0}, 2.0);        
+    Particle<double, DIM> p2({0.0, -1.0}, {-1.0, 0.0}, 2.0);      
+    Particle<double, DIM> p3({-1.0, 0.0}, {0.0, 1.0}, 2.0);     
+    Particle<double, DIM> p4({0.0, 1.0}, {1.0, 0.0}, 2.0); 
 
     nbody::Nbody<double, DIM> nbody;
     double time_step=0.04;
